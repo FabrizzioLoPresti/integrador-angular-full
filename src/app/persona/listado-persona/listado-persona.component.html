@@ -1,0 +1,45 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Edad</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of personas">
+        <th scope="row">{{ p.id }}</th>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.edad }} - {{ p.edad | esMayor:16 }}</td>
+        <td>{{ fecha | date:'dd/MM/yyyy' }}</td>
+        <td>{{ p.direccion.calle }} {{ p.direccion.nro }} | {{ p.direccion.ciudad?.nombre }}, {{ p.direccion.provincia?.nombre }}</td>
+        <td>{{ p.rol?.nombre }}</td>
+        <td>
+          <button type="button" class="btn btn-warning" (click)="editar(p.id)">Editar</button>
+          <app-baja-persona [id]="p.id" ></app-baja-persona>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    {{ $valorObservable | async }}
+  </p>
+  <p [ngClass]="{
+    rojo: personas.length == 0,
+    verde: personas.length > 0
+  }">
+    Cantidad de Resultados: {{ personas.length }}
+  </p>
+  <p appCambiarColor>
+    Cambiar de Color
+  </p>
+  <app-inyeccion-contenido>
+    <p>HOLA</p>
+    <p segundaSeccion>ADIOS</p>
+  </app-inyeccion-contenido>
+</div>

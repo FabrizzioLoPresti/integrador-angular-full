@@ -1,0 +1,64 @@
+<div class="container">
+  <form [formGroup]="formulario" >
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre" formControlName="nombre">
+      <div id="emailHelp" class="form-text">Minimo 3 caracteres.</div>
+      <p *ngIf="formulario.controls['nombre']?.touched && formulario.controls['nombre']?.hasError('required')">
+        * Nombre requerido
+      </p>
+      <p *ngIf="formulario.controls['nombre']?.touched && formulario.controls['nombre']?.hasError('nameAlreadyExists')">
+        * Nombre existente
+      </p>
+    </div>
+    <div class="mb-3">
+      <label for="edad" class="form-label">Edad</label>
+      <input type="number" class="form-control" id="edad" formControlName="edad">
+    </div>
+    <div class="mb-3" formGroupName="direccion">
+      <label for="calle" class="form-label">Calle</label>
+      <input type="text" class="form-control" id="calle" formControlName="calle">
+
+      <label for="nro" class="form-label">Numero</label>
+      <input type="number" class="form-control" id="nro" formControlName="nro">
+
+      <label for="provincia" class="form-label">Provincia</label>
+      <select class="form-select" name="provincia" id="provincia" formControlName="idProvincia">
+        <option [selected]="true" [disabled]="true">SELECCIONE</option>
+        <option *ngFor="let p of $provincias | async" [ngValue]="p.id">{{p.nombre}}</option>
+      </select>
+
+      <label for="ciudad" class="form-label">Ciudad</label>
+      <select class="form-select" name="ciudad" id="ciudad" formControlName="idCiudad">
+        <option [selected]="true" [disabled]="true">SELECCIONE</option>
+        <option *ngFor="let c of $ciudades | async" [ngValue]="c.id">{{c.nombre}}</option>
+      </select>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="tieneRol" formControlName="tieneRol">
+      <label class="form-check-label" for="tieneRol">Tiene Rol?</label>
+    </div>
+    <div class="mb-3" *ngIf="mostrarRol">
+      <label for="rol" class="form-label">Rol</label>
+      <select class="form-select" name="rol" id="rol" formControlName="idRol">
+        <option [selected]="true" [disabled]="true">SELECCIONE</option>
+        <option *ngFor="let r of $roles | async" [ngValue]="r.id">{{r.nombre}}</option>
+      </select>
+      <p *ngIf="formulario.controls['idRol']?.touched && formulario.controls['idRol']?.hasError('usuarioInvalido')">
+        * ROL DE USUARIO INVALIDO
+      </p>
+    </div>
+    <button type="submit" class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" (click)="enviar()">Enviar</button>
+
+    <p>
+      Nombre: {{formulario.controls['nombre'].value}}
+    </p>
+    <p>
+      Calle: {{formulario.controls['direccion'].get('calle')?.value}}
+    </p>
+    <p *ngIf="formulario.touched && formulario.invalid">
+      * Formulario No Valido
+    </p>
+  </form>
+</div>
