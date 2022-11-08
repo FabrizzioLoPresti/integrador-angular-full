@@ -1,5 +1,11 @@
 # CompletoV5
 
+URLS
+. Personas: https://633345b1573c03ab0b5b5964.mockapi.io/personas
+. Roles: https://633345b1573c03ab0b5b5964.mockapi.io/roles
+. Provincias: https://635af7816f97ae73a63a9e8d.mockapi.io/provincia
+. Ciudades: https://635af7816f97ae73a63a9e8d.mockapi.io/ciudad
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.0.
 
 ## Development server
